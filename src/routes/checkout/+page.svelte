@@ -8,8 +8,8 @@
 	import { removeItemFromCart } from '$lib/functions/shoppingCart';
 </script>
 
-<div class="flex items-center mt-8 flex-col px-32">
-	<Table.Root class="w-full mx-auto">
+<div class="mt-8 flex flex-col items-center px-32">
+	<Table.Root class="mx-auto w-full">
 		<Table.Header>
 			<Table.Row>
 				<Table.Head>Image</Table.Head>
@@ -29,7 +29,7 @@
 								goto(`/product/${item.id}`);
 							}}
 						>
-							<img src={item.image_small} alt={item.title} class="w-10 h-10" />
+							<img src={item.image_small} alt={item.title} class="h-10 w-10" />
 						</a>
 					</Table.Cell>
 					<Table.Cell>{item.title}</Table.Cell>
@@ -66,8 +66,8 @@
 		</Table.Body>
 	</Table.Root>
 
-	<div class="w-full mt-16">
-		<div class="flex gap-2 w-full justify-between">
+	<div class="mt-16 w-full">
+		<div class="flex w-full justify-between gap-2">
 			<Button variant="secondary" href="/">Keep shopping</Button>
 			{#if $cart.length > 0}
 				<Button href="/checkout/account">Next</Button>

@@ -10,7 +10,6 @@
 
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
-	console.log('🚀 ~ file: +layout.svelte:14 ~ page:', $page);
 </script>
 
 <main class="mt-16 px-2 sm:px-8 md:px-32">

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { PageData } from '../[id]/$types';
-	import { addItemToCart } from '$lib/functions/shoppingCart';
+	export let data: PageData;
+	import { addItemToCart, cart, removeItemFromCart } from '$lib/functions/shoppingCart';
 	import { AspectRatio } from '$lib/components/ui/aspect-ratio';
 	import type { CartItem, Purchase } from '$lib/types';
 
@@ -8,49 +9,49 @@
 	import * as Accordion from '$lib/components/ui/accordion';
 	import { Face } from 'radix-icons-svelte';
 	import * as Alert from '$lib/components/ui/alert';
-	export let data: PageData;
 
 	import '../../../app.pcss';
+	import { PackageCheck, PackageMinus } from 'lucide-svelte';
 
 	//product
 	let product = data.product as CartItem;
 	let purchasesFromServer = data.purchases as Purchase[] | null;
-	$: userOwnsProduct = purchasesFromServer?.find((item) => item.product_id == product.id);
+	$: userOwnsProduct = purchasesFromServer?.find((purchase) =>
+		purchase.lineItems.find((item) => item.product_id === product.id)
+	);
+	$: productAlreadyInCart = $cart.find((item) => item.id === product.id);
 </script>
 
 <main>
-	<article class="lg:flex-row flex flex-col-reverse">
+	<article class="flex flex-col-reverse lg:flex-row">
 		<div
-			class="lg:w-1/2 w-full bg-secondary flex justify-center items-center relative"
+			class="relative flex w-full items-center justify-center bg-secondary lg:w-1/2"
 			id="product-image"
 		>
 			<div class="h-96 w-96">
 				<AspectRatio
 					ratio={1 / 1}
-					class="bg-muted cover aspect-square bg-transparent"
+					class="cover aspect-square bg-muted bg-transparent"
 					data-flip-id={'cover-' + product.id}
 				>
 					<img
 						src={product.image}
 						alt={product.title}
-						class="rounded-md object-contain h-full w-full"
+						class="h-full w-full rounded-md object-contain"
 					/>
 				</AspectRatio>
-				<h2 class="text-foreground mt-8 font-light">{product.description}</h2>
+				<h2 class="mt-8 font-light text-secondary-foreground">{product.description}</h2>
 			</div>
 		</div>
-		<div class="lg:w-1/2 w-full p-8 flex flex-col justify-between">
+		<div class="flex w-full flex-col justify-between p-8 lg:w-1/2">
 			<div>
 				<h1 class="text-4xl font-bold">{product.title}</h1>
-				<p class="text-sm text-foreground mt-2 font-light">
-					<span class="font-bold mr-2">Product id:</span>
+				<p class="mt-2 text-sm font-light text-foreground">
+					<span class="mr-2 font-bold">Product id:</span>
 					{product.id}
 				</p>
-				<script lang="ts">
-					import * as Accordion from '$lib/components/ui/accordion';
-				</script>
 
-				<Accordion.Root class="w-full my-16">
+				<Accordion.Root class="my-16 w-full">
 					<Accordion.Item value="item-1">
 						<Accordion.Trigger>Product description</Accordion.Trigger>
 						<Accordion.Content>{product.description}</Accordion.Content>
@@ -65,16 +66,16 @@
 						<Accordion.Trigger>Product details</Accordion.Trigger>
 						<Accordion.Content>
 							<p>
-								You will get the source code throug your account page as well as a downloadable text
-								file.
+								You will get the source code through your account page as well as a downloadable
+								text file.
 							</p>
 						</Accordion.Content>
 					</Accordion.Item>
 				</Accordion.Root>
 			</div>
-			<div class="flex justify-between items-center @container">
+			<div class="@container flex items-center justify-start">
 				{#if userOwnsProduct}
-					<Alert.Root class="flex flex-col justify-between gap-8 @2xl:flex-row">
+					<Alert.Root class="@2xl:flex-row flex flex-col justify-between gap-8">
 						<div class="flex gap-4">
 							<Face class="h-4 w-4" />
 							<div>
@@ -87,18 +88,40 @@
 
 						<Button variant="default" href="/account">View product</Button>
 					</Alert.Root>
-				{:else}
-					<h2 class="text-2xl">{product.price.toFixed(2)},- DKK</h2>
+				{:else if productAlreadyInCart}
+					<Alert.Root class=" flex max-w-72 flex-col justify-between gap-4">
+						<div class="flex items-center gap-4">
+							<PackageCheck class="h-6 w-6" />
+							<Alert.Title>Product added to cart</Alert.Title>
+						</div>
 
-					<Button
-						class="w-fit px-16 xl:px-32 mt-2"
-						size="lg"
-						on:click={() => {
-							addItemToCart(product);
-						}}
-					>
-						Add to cart
-					</Button>
+						<div class="flex w-full gap-2">
+							<Button variant="default" href="/checkout" class="w-1/2">View cart</Button>
+							<Button
+								variant="secondary"
+								on:click={() => {
+									removeItemFromCart(product.id);
+								}}
+								class="w-1/2"
+							>
+								<PackageMinus class="mr-2 h-5 w-5" /> Remove
+							</Button>
+						</div>
+					</Alert.Root>
+				{:else}
+					<div class="flex w-full justify-between">
+						<h2 class="text-2xl font-bold">{product.price.toFixed(2)},- DKK</h2>
+
+						<Button
+							class="mt-2 w-fit px-16 xl:px-32"
+							size="lg"
+							on:click={() => {
+								addItemToCart(product);
+							}}
+						>
+							Add to cart
+						</Button>
+					</div>
 				{/if}
 			</div>
 		</div>

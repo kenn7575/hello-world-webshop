@@ -1,0 +1,71 @@
+{
+	"object": "list",
+	"data": [
+		{
+			"id": "li_1OydUCBT36pHQIUNu8EQhWzl",
+			"object": "item",
+			"amount_discount": 0,
+			"amount_subtotal": 250,
+			"amount_tax": 0,
+			"amount_total": 250,
+			"currency": "dkk",
+			"description": "C - Hello World",
+			"price": {
+				"id": "price_1OJER2BT36pHQIUNGyJaPHoD",
+				"object": "price",
+				"active": true,
+				"billing_scheme": "per_unit",
+				"created": 1701605168,
+				"currency": "dkk",
+				"custom_unit_amount": null,
+				"livemode": false,
+				"lookup_key": null,
+				"metadata": {},
+				"nickname": null,
+				"product": "prod_P7TNGns2ZeXVtG",
+				"recurring": null,
+				"tax_behavior": "unspecified",
+				"tiers_mode": null,
+				"transform_quantity": null,
+				"type": "one_time",
+				"unit_amount": 250,
+				"unit_amount_decimal": "250"
+			},
+			"quantity": 1
+		},
+		{
+			"id": "li_1OydUCBT36pHQIUNFj08oRDj",
+			"object": "item",
+			"amount_discount": 0,
+			"amount_subtotal": 250,
+			"amount_tax": 0,
+			"amount_total": 250,
+			"currency": "dkk",
+			"description": "TypeScript - Hello World",
+			"price": {
+				"id": "price_1OybVjBT36pHQIUNG7NoKQJj",
+				"object": "price",
+				"active": true,
+				"billing_scheme": "per_unit",
+				"created": 1711465319,
+				"currency": "dkk",
+				"custom_unit_amount": null,
+				"livemode": false,
+				"lookup_key": null,
+				"metadata": {},
+				"nickname": null,
+				"product": "prod_PoDxB7BiuD00VF",
+				"recurring": null,
+				"tax_behavior": "unspecified",
+				"tiers_mode": null,
+				"transform_quantity": null,
+				"type": "one_time",
+				"unit_amount": 250,
+				"unit_amount_decimal": "250"
+			},
+			"quantity": 1
+		}
+	],
+	"has_more": false,
+	"url": "/v1/checkout/sessions/cs_test_b1MOqmOSqeQAUur5ROJxnAqLjDf4e8HL6M24dPZ29MA42UxzxRV1YBGQyN/line_items"
+}

@@ -2,7 +2,7 @@
 	import type { PageData } from './$types';
 
 	export let data: PageData;
-	console.log('🚀 ~ file: +page.svelte:5 ~ data:', data);
+
 	import * as Table from '$lib/components/ui/table';
 	import type { CartItem } from '$lib/types';
 

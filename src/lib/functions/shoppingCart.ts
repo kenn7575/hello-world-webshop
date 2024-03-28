@@ -2,8 +2,8 @@
 import { writable } from 'svelte/store';
 import type { Writable } from 'svelte/store';
 import type { CartItem, Purchase } from '$lib/types';
-import { messages } from '$lib/functions/messageManager';
 
+import { toast } from 'svelte-sonner';
 export const cart = writable([]) as Writable<CartItem[]>;
 export async function addItemToCart(product: CartItem) {
 	let cartItems: CartItem[] = [];
@@ -11,20 +11,17 @@ export async function addItemToCart(product: CartItem) {
 		//if item already exists in cart, increase quantity
 		const existingItem = items.find((item) => item.id === product.id);
 		if (existingItem) {
-			messages.addMessage({
-				title: 'Item was already in cart',
-				text: 'you can now go to the checkout page to complete your order',
-				type: 'success',
-				timeout: 4000
+			toast('Item was already in cart', {
+				duration: 4000,
+				description: 'you can now go to the checkout page to complete your order'
 			});
+
 			cartItems = [...items];
 			return cartItems;
 		} else {
-			messages.addMessage({
-				title: 'Item added to cart',
-				text: 'you can now go to the checkout page to complete your order',
-				type: 'success',
-				timeout: 4000
+			toast('Item added to cart', {
+				duration: 4000,
+				description: 'you can now go to the checkout page to complete your order'
 			});
 			cartItems = [
 				...items,
@@ -34,16 +31,19 @@ export async function addItemToCart(product: CartItem) {
 					price: product.price,
 					image: product.image,
 					image_small: product.image_small,
-					description: product.description
+					description: product.description,
+					stripe_prod_id: product.stripe_prod_id,
+					stripe_price_id: product.stripe_price_id
 				}
 			];
+
 			return cartItems;
 		}
 	});
 
 	// update localstorage
-	const ids = cartItems.map((item) => item.id);
-	document.cookie = `cart=${JSON.stringify(ids)}; path=/; samesite=strict; secure=true`;
+	const priceIds = cartItems.map((item) => item.stripe_price_id);
+	document.cookie = `cart=${JSON.stringify(priceIds)}; path=/; samesite=strict; secure=true`;
 }
 export async function removeItemFromCart(id: string) {
 	// update cart
@@ -54,6 +54,6 @@ export async function removeItemFromCart(id: string) {
 	});
 
 	// update localstorage
-	const ids = cartItems.map((item) => item.id);
-	document.cookie = `cart=${JSON.stringify(ids)}; path=/; samesite=strict; secure=true`;
+	const priceIds = cartItems.map((item) => item.stripe_price_id);
+	document.cookie = `cart=${JSON.stringify(priceIds)}; path=/; samesite=strict; secure=true`;
 }
