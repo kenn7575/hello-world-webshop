@@ -5,6 +5,11 @@ export interface CartItem {
 	title: string;
 	price: number;
 	description: string;
+	stripe_prod_id: string;
+	stripe_price_id: string;
+}
+export interface Product extends CartItem {
+	file: string;
 }
 export interface MessageNoId {
 	title: string;
@@ -25,9 +30,19 @@ export interface UserData {
 }
 export interface Purchase {
 	id: string;
-	charge_id: string;
+	stripe_checkout_session_id: string;
+	stripe_charge_id: string;
+	stripe_payment_intent_id: string;
+	refunded: boolean;
 	amount: number;
-	currency: string;
+	date: Date;
+	lineItems: LineItem[];
+}
+export interface LineItem {
+	amount: string;
+	quantity: number;
 	product_id: string;
-	created: number;
+	stripe_prod_id: string;
+	stripe_price_id: string;
+	stripe_line_item_id: string;
 }

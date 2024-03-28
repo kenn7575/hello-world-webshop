@@ -3,9 +3,8 @@
 	export let data: PageData;
 	import * as Card from '$lib/components/ui/card';
 	import { AspectRatio } from '$lib/components/ui/aspect-ratio';
-	import type { CartItem, UserData } from '$lib/types';
+	import type { CartItem } from '$lib/types';
 	let products = data.products as CartItem[];
-	import { user } from '$lib/functions/firebase';
 	import { Badge } from '$lib/components/ui/badge';
 	//get user data
 
@@ -20,8 +19,8 @@
 	}
 </script>
 
-<div class="flex w-full justify-center mt-4 px-4 xl:px-40">
-	<div class="grid g w-full gap-4">
+<div class="mt-4 flex w-full justify-center px-4 xl:px-40">
+	<div class="g grid w-full gap-4">
 		{#each products as product}
 			<a href="/product/{product.id}">
 				<Card.Root class="">
@@ -32,20 +31,20 @@
 					<Card.Content>
 						<AspectRatio
 							ratio={1 / 1}
-							class="bg-muted cover bg-transparent"
+							class="cover bg-muted bg-transparent"
 							data-flip-id="cover-{product.id}"
 						>
 							<img
 								src={product.image}
 								alt={product.title}
-								class="rounded-md object-contain h-full w-full"
+								class="h-full w-full rounded-md object-contain"
 							/>
 						</AspectRatio>
 					</Card.Content>
 					<Card.Footer class="flex justify-between">
 						<p><strong>{formatPrice(product.price)},- DKK</strong></p>
 						<!-- Display if the item is owened by the current user  -->
-						{#if $userPurchases && $userPurchases.find((item) => item.product_id === product.id)}
+						{#if $userPurchases && $userPurchases.find( (purchase) => purchase.lineItems.find((item) => item.product_id === product.id) )}
 							<Badge variant="default">Purchased</Badge>
 						{/if}
 					</Card.Footer>
