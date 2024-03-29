@@ -24,14 +24,16 @@
 			</Card.Header>
 		</Card.Root>
 	</a>
+	<a href="/refund">
+		<Card.Root class="h-full">
+			<Card.Header class="relative">
+				<Card.Title>Refund policy</Card.Title>
+				<Card.Description>And how to request a refund.</Card.Description>
+				<HandCoins class="absolute right-4 top-2 h-[2rem] w-[2rem]" />
+			</Card.Header>
+		</Card.Root>
+	</a>
 	<Card.Root>
-		<Card.Header class="relative">
-			<Card.Title>Refund</Card.Title>
-			<Card.Description>Request a refund.</Card.Description>
-			<HandCoins class="absolute right-4 top-2 h-[2rem] w-[2rem]" />
-		</Card.Header>
-		<Card.Content>content</Card.Content>
-	</Card.Root><Card.Root>
 		<Card.Header class="relative">
 			<Card.Title>Support email</Card.Title>
 			<Card.Description>Contact email support.</Card.Description>
@@ -47,21 +49,24 @@
 		</Card.Header>
 		<Card.Content>content</Card.Content>
 	</Card.Root>
-	<Card.Root>
-		<Card.Header class="relative">
-			<Card.Title>Privacy policy</Card.Title>
-			<Card.Description>Delete account and more.</Card.Description>
-			<Lock class="absolute right-4 top-2 h-[2rem] w-[2rem]" />
-		</Card.Header>
-		<Card.Content>content</Card.Content>
-	</Card.Root><Card.Root>
-		<Card.Header class="relative">
-			<Card.Title>Payment Terms and Conditions:</Card.Title>
-			<Card.Description>How we collect and process your payment information.</Card.Description>
-			<Handshake class="absolute right-4 top-2 h-[2rem] w-[2rem]" />
-		</Card.Header>
-		<Card.Content>content</Card.Content>
-	</Card.Root>
+	<a href="/privacy">
+		<Card.Root class="h-full min-h-40">
+			<Card.Header class="relative">
+				<Card.Title>Privacy policy</Card.Title>
+				<Card.Description>Delete account and more.</Card.Description>
+				<Lock class="absolute right-4 top-2 h-[2rem] w-[2rem]" />
+			</Card.Header>
+		</Card.Root>
+	</a>
+	<a href="/payment-terms">
+		<Card.Root class="h-full min-h-40">
+			<Card.Header class="relative">
+				<Card.Title>Payment Terms and Conditions:</Card.Title>
+				<Card.Description>How we collect and process your payment information.</Card.Description>
+				<Handshake class="absolute right-4 top-2 h-[2rem] w-[2rem]" />
+			</Card.Header>
+		</Card.Root>
+	</a>
 </div>
 
 <style>

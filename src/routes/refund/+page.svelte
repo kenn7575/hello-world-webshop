@@ -1,9 +1,9 @@
 <script lang="ts">
-	import Privacy from '$lib/components/privacy.svelte';
+	import Refund from '$lib/components/refund.svelte';
 </script>
 
 <main class="my-16 flex justify-center px-4">
 	<div class="max-w-3xl">
-		<Privacy />
+		<Refund />
 	</div>
 </main>

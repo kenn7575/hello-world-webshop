@@ -27,7 +27,7 @@
 	import * as Dialog from '$lib/components/ui/dialog';
 	import { Button } from '$lib/components/ui/button';
 	import { Checkbox } from '$lib/components/ui/checkbox';
-	import Terms from '$lib/components/ui/terms.svelte';
+	import Terms from '$lib/components/ui/privacy.svelte';
 
 	//state
 	let email = '';
@@ -125,7 +125,7 @@
 	}
 </script>
 
-<main class="mt-32 w-full flex justify-center items-center">
+<main class="mt-32 flex w-full items-center justify-center">
 	<Tabs.Root value="create" class="w-[400px]">
 		<Tabs.List class="grid w-full grid-cols-2">
 			<Tabs.Trigger on:click={reset} value="create">Create account</Tabs.Trigger>
@@ -142,18 +142,18 @@
 						<div class="grid grid-cols-2 gap-6">
 							{#if exeptTerms}
 								<Button on:click={githubSignin} variant="outline">
-									<GithubLogo class="h-[1.2rem] w-[1.2rem] mr-2" />
+									<GithubLogo class="mr-2 h-[1.2rem] w-[1.2rem]" />
 									Github
 								</Button>
 							{:else}
 								<Button disabled variant="outline">
-									<GithubLogo class="h-[1.2rem] w-[1.2rem] mr-2" />
+									<GithubLogo class="mr-2 h-[1.2rem] w-[1.2rem]" />
 									Github
 								</Button>
 							{/if}
 							{#if exeptTerms}
 								<Button on:click={googleSignin} variant="outline">
-									<svg class="h-[1.2rem] w-[1.2rem] mr-2" role="img" viewBox="0 0 24 24">
+									<svg class="mr-2 h-[1.2rem] w-[1.2rem]" role="img" viewBox="0 0 24 24">
 										<path
 											fill="currentColor"
 											d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z"
@@ -163,7 +163,7 @@
 								</Button>
 							{:else}
 								<Button disabled variant="outline">
-									<svg class="h-[1.2rem] w-[1.2rem] mr-2" role="img" viewBox="0 0 24 24">
+									<svg class="mr-2 h-[1.2rem] w-[1.2rem]" role="img" viewBox="0 0 24 24">
 										<path
 											fill="currentColor"
 											d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z"
@@ -202,7 +202,7 @@
 						</div>
 						{#if errorMessage}
 							<p
-								class="text-destructive-foreground bg-destructive/80 p-4 rounded-md border-destructive border text-sm"
+								class="rounded-md border border-destructive bg-destructive/80 p-4 text-sm text-destructive-foreground"
 							>
 								{errorMessage}
 							</p>
@@ -227,9 +227,9 @@
 					<Card.Footer>
 						<div class="flex flex-col">
 							{#if exeptTerms}
-								<Button on:click={passwordSignup} class="w-full mt-2">Create account</Button>
+								<Button on:click={passwordSignup} class="mt-2 w-full">Create account</Button>
 							{:else}
-								<Button disabled class="w-full mt-2">Create account</Button>
+								<Button disabled class="mt-2 w-full">Create account</Button>
 							{/if}
 						</div>
 					</Card.Footer>
@@ -248,11 +248,11 @@
 					<Card.Content class="grid gap-4">
 						<div class="grid grid-cols-2 gap-6">
 							<Button on:click={githubSignin} variant="outline">
-								<GithubLogo class="h-[1.2rem] w-[1.2rem] mr-2" />
+								<GithubLogo class="mr-2 h-[1.2rem] w-[1.2rem]" />
 								Github
 							</Button>
 							<Button on:click={googleSignin} variant="outline">
-								<svg class="h-[1.2rem] w-[1.2rem] mr-2" role="img" viewBox="0 0 24 24">
+								<svg class="mr-2 h-[1.2rem] w-[1.2rem]" role="img" viewBox="0 0 24 24">
 									<path
 										fill="currentColor"
 										d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z"
@@ -290,7 +290,7 @@
 						</div>
 						{#if errorMessage}
 							<p
-								class="text-destructive-foreground bg-destructive/80 p-4 rounded-md border-destructive border text-sm"
+								class="rounded-md border border-destructive bg-destructive/80 p-4 text-sm text-destructive-foreground"
 							>
 								{errorMessage}
 							</p>

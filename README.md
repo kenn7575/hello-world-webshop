@@ -7,30 +7,33 @@
 ## Database structure
 ```plaintext
 (): collection
-[]: document
+||: document
 <>: document field
+<...[]>: document field list
+
 
 (users) ↴
-    [id] ↴
+    |id| ↴
         <displayname>
         <email>
         <phone_number>
         <uid>
         <stripe_customer_id>
         (purchases) ↴
-                [id] ↴
+                |id| ↴
                     <created>
                     <amount>
                     <currency>
                     <checkout_session_id>
-                    (lineItems) ↴
-                        [id] ↴
+                    <lineItems[
                             <price>
                             <quantity>
                             <product> 
                             <product_id>
+                    ]>
+
 (products) ↴
-    [id] ↴
+    |id| ↴
         <title>
         <description>
         <price>
@@ -39,5 +42,3 @@
         <image_small>
         <stripe_price_id>
         <stripe_product_id>
-                            
-```
