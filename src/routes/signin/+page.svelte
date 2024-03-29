@@ -27,7 +27,7 @@
 	import * as Dialog from '$lib/components/ui/dialog';
 	import { Button } from '$lib/components/ui/button';
 	import { Checkbox } from '$lib/components/ui/checkbox';
-	import Terms from '$lib/components/ui/privacy.svelte';
+	import Terms from '$lib/components/privacy.svelte';
 
 	//state
 	let email = '';
