@@ -45,6 +45,7 @@ export async function addItemToCart(product: CartItem) {
 	const priceIds = cartItems.map((item) => item.stripe_price_id);
 	document.cookie = `cart=${JSON.stringify(priceIds)}; path=/; samesite=strict; secure=true`;
 }
+
 export async function removeItemFromCart(id: string) {
 	// update cart
 	let cartItems: CartItem[] = [];

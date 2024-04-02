@@ -1,10 +1,9 @@
 <script lang="ts">
 	import type { PageData } from './$types';
+	import type { CartItem, Purchase } from '$lib/types';
 
 	export let data: PageData;
-
-	import * as Table from '$lib/components/ui/table';
-	import type { CartItem } from '$lib/types';
+	console.log('🚀 ~ data:', data);
 
 	function getProduct(id: string): CartItem | undefined {
 		const product = data.products.find((product) => product.id === id);
@@ -21,31 +20,136 @@
 		const minutes = ('0' + date.getMinutes()).slice(-2);
 		const seconds = ('0' + date.getSeconds()).slice(-2);
 
-		const displayDate = `${day}-${month}-${year} ${hours}:${minutes}:${seconds}`;
+		const displayDateFull = `${day}-${month}-${year} ${hours}:${minutes}:${seconds}`;
+		const displayDate = `${day}-${month}-${year}`;
+
 		return displayDate;
+	}
+	import { Button } from '$lib/components/ui/button/index.js';
+	import { Separator } from '$lib/components/ui/separator/index.js';
+	import * as Card from '$lib/components/ui/card/index.js';
+	import Badge from '$lib/components/ui/badge/badge.svelte';
+	import { Skeleton } from '$lib/components/ui/skeleton/index.js';
+
+	function uppercaseFirstLetter(string: string | undefined | null) {
+		if (!string) return '';
+		if (typeof string !== 'string') return '';
+		return string.charAt(0).toUpperCase() + string.slice(1);
+	}
+
+	async function getPurchases() {
+		const response = await fetch('/api/account/purchases');
+		const data = await response.json();
+		if (response.ok) {
+			return data;
+		} else {
+			throw new Error(data.message);
+		}
 	}
 </script>
 
-<Table.Root class="mt-8">
-	<Table.Caption>A list of your all your placed orders.</Table.Caption>
-	<Table.Header>
-		<Table.Row>
-			<Table.Head>Product</Table.Head>
-			<Table.Head>Date <span class="opacity-50">(dd-mm-yyyy hh:mm:ss)</span></Table.Head>
-			<Table.Head>Charge Id</Table.Head>
-			<Table.Head class="text-right">Price</Table.Head>
-		</Table.Row>
-	</Table.Header>
-	<Table.Body>
-		{#each data.purchases as purchas (purchas.id)}
-			<Table.Row>
-				<Table.Cell class="font-medium"
-					>{getProduct(purchas.product_id)?.title ?? 'error'}</Table.Cell
-				>
-				<Table.Cell>{unixToDate(purchas.created)}</Table.Cell>
-				<Table.Cell>{purchas.charge_id}</Table.Cell>
-				<Table.Cell class="text-right">{(purchas.amount / 100).toFixed(2)} DKK</Table.Cell>
-			</Table.Row>
+{#await getPurchases()}
+	<div class="mx-auto flex w-full max-w-5xl flex-col gap-4">
+		{#each [0, 1, 2, 3] as skeleton}
+			<Card.Root
+				class="flex w-full  flex-col items-start justify-between gap-y-4 border-2 bg-transparent p-6 sm:flex-row"
+			>
+				<div class="flex flex-row items-start gap-4">
+					<div class=" flex flex-col gap-2">
+						<Skeleton class="h-5 w-14 rounded-sm bg-foreground/20" />
+						<Skeleton class="h-3 w-20 rounded-full bg-foreground/20" />
+					</div>
+					<Separator orientation="vertical" class="h-12 bg-foreground/25" />
+					<div class=" flex flex-col gap-2">
+						<Skeleton class="h-5 w-14 rounded-sm bg-foreground/20" />
+						<Skeleton class="h-3 w-20 rounded-full bg-foreground/20" />
+					</div>
+				</div>
+				<Separator orientation="horizontal" class="bg-foreground/25  sm:hidden" />
+
+				<Separator orientation="vertical" class="mx-4 hidden h-24 bg-foreground/25 sm:block" />
+				<div class=" mr-auto flex flex-col gap-2">
+					<Skeleton class="h-5 w-20 rounded-sm bg-foreground/20" />
+					{#each [0, 1] as skeletonItem}
+						<div class="mt-2 flex items-center gap-4">
+							<Skeleton class="aspect-square h-8 w-8 rounded-full bg-foreground/20" />
+							<div class="flex flex-col gap-2">
+								<Skeleton class="h-4 w-28 rounded-sm bg-foreground/20" />
+							</div>
+						</div>
+					{/each}
+				</div>
+				<Separator orientation="horizontal" class="bg-foreground/25  sm:hidden" />
+
+				<div class="flex flex-col items-end justify-around gap-4 p-0">
+					<Skeleton class="h-9 w-[7.25rem] rounded-md bg-foreground/20" />
+
+					<Skeleton class="h-8 w-20 rounded-md bg-foreground/20" />
+				</div>
+			</Card.Root>
 		{/each}
-	</Table.Body>
-</Table.Root>
+	</div>
+{:then purchases}
+	<div class="mx-auto flex w-full max-w-5xl flex-col gap-4">
+		{#if purchases.length === 0}
+			<Card.Root
+				class="flex w-full flex-col items-start justify-between gap-y-4 bg-card p-6 sm:flex-row"
+			>
+				<Card.Header>
+					<Card.Title>You have not purchased anything yet</Card.Title>
+					<Card.Description
+						>When you purchase a product, the ordre will apper on this page</Card.Description
+					>
+				</Card.Header>
+			</Card.Root>
+		{:else}
+			{#each purchases as purchase}
+				<Card.Root
+					class="flex w-full flex-col items-start justify-between gap-y-4 bg-card p-6 sm:flex-row"
+				>
+					<div class="flex flex-row items-start gap-4">
+						<div class=" flex flex-col gap-2">
+							<Badge class="w-fit border-foreground" variant="outline">Status</Badge>
+							<p class="text-sm font-normal">{uppercaseFirstLetter(purchase?.session?.status)}</p>
+						</div>
+						<Separator orientation="vertical" class="h-12 bg-foreground/25" />
+						<div class="flex flex-col gap-2">
+							<Badge class="w-fit border-foreground" variant="outline">Date</Badge>
+							<p class="text-sm font-normal">{unixToDate(purchase?.date)}</p>
+						</div>
+					</div>
+					<Separator orientation="horizontal" class="bg-foreground/25  sm:hidden" />
+
+					<Separator orientation="vertical" class="mx-4 hidden h-24 bg-foreground/25 sm:block" />
+					<div class=" mr-auto flex flex-col gap-2">
+						<Badge class="w-fit border-foreground" variant="outline">Products</Badge>
+						{#each purchase.lineItems as lineItem}
+							<div class="mt-2 flex items-center gap-4">
+								<img
+									src={getProduct(lineItem.product_id)?.image}
+									alt={lineItem.product_id}
+									class="aspect-square h-8 w-8 object-contain"
+								/>
+								<div class="flex flex-col gap-2">
+									<p class="text-base font-medium">{getProduct(lineItem.product_id)?.title}</p>
+								</div>
+							</div>
+						{/each}
+					</div>
+					<Separator orientation="horizontal" class="bg-foreground/25  sm:hidden" />
+
+					<div class="flex flex-col items-end justify-around gap-4 p-0">
+						<Button variant="secondary">Ordre details</Button>
+						<p class="text-3xl font-bold">{purchase.amount / 100} kr.</p>
+					</div>
+				</Card.Root>
+			{/each}
+		{/if}
+	</div>
+{:catch error}
+	<Alert.Root variant="destructive">
+		<ExclamationTriangle class="h-4 w-4" />
+		<Alert.Title>Error</Alert.Title>
+		<Alert.Description>{error.message}</Alert.Description>
+	</Alert.Root>
+{/await}

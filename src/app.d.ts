@@ -5,6 +5,8 @@ declare global {
 		// interface Error {}
 		interface Locals {
 			userId: string | null;
+			user: UserData;
+			userRef: FirebaseFirestore.DocumentReference<FirebaseFirestore.DocumentData>;
 		}
 		// interface PageData {}
 		// interface Platform {}

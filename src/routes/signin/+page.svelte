@@ -125,7 +125,7 @@
 	}
 </script>
 
-<main class="mt-32 flex w-full items-center justify-center">
+<div class="mt-32 flex w-full items-center justify-center">
 	<Tabs.Root value="create" class="w-[400px]">
 		<Tabs.List class="grid w-full grid-cols-2">
 			<Tabs.Trigger on:click={reset} value="create">Create account</Tabs.Trigger>
@@ -325,4 +325,4 @@
 			</Card.Root>
 		</Tabs.Content>
 	</Tabs.Root>
-</main>
+</div>

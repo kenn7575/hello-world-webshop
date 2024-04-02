@@ -4,6 +4,7 @@
 	"private": true,
 	"scripts": {
 		"dev": "vite dev",
+		"host": "vite dev --host",
 		"webhooks": "stripe listen --forward-to localhost:5173/api/stripe/webhooks",
 		"build": "vite build",
 		"preview": "vite preview",

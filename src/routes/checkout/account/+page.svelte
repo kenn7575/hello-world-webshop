@@ -28,8 +28,8 @@
 	}
 </script>
 
-<main class="flex justify-center w-full py-32">
-	<Card.Root class="w-96 min-h">
+<div class="flex w-full justify-center py-32">
+	<Card.Root class="min-h w-96">
 		<Card.Header>
 			<Card.Title>Account</Card.Title>
 			<Card.Description>
@@ -56,19 +56,19 @@
 				</div>
 			{/if}
 		</Card.Content>
-		<Card.Footer class="flex gap-2 justify-between">
+		<Card.Footer class="flex justify-between gap-2">
 			{#if $user}
 				<Button variant="secondary" on:click={changeUser}>Change account</Button>
 				<Button href="/checkout/pay">
 					Go to checkout
-					<ArrowRight class="h-4 w-4 ml-2" />
+					<ArrowRight class="ml-2 h-4 w-4" />
 				</Button>
 			{:else}
 				<Button href="/signin?redirect=/checkout/pay" class="ml-auto">
 					Sign in
-					<ArrowRight class="h-4 w-4 ml-2" />
+					<ArrowRight class="ml-2 h-4 w-4" />
 				</Button>
 			{/if}
 		</Card.Footer>
 	</Card.Root>
-</main>
+</div>

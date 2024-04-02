@@ -1,7 +1,7 @@
 import type { RequestHandler } from './$types';
+import { adminStripe as stripe } from '$lib/server/admin';
+import { STRIPE_WEBHOOK_SECRET } from '$env/static/private';
 import Stripe from 'stripe';
-import { SECRET_STRIPE_KEY, STRIPE_WEBHOOK_SECRET } from '$env/static/private';
-const stripe = new Stripe(SECRET_STRIPE_KEY);
 import { error, json } from '@sveltejs/kit';
 import { adminDB } from '$lib/server/admin';
 import { user } from '$lib/functions/firebase';

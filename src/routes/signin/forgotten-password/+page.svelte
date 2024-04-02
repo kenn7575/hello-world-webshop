@@ -22,7 +22,7 @@
 	}
 </script>
 
-<main class="w-full flex mt-32 justify-center">
+<div class="mt-32 flex w-full justify-center">
 	<Card.Root class="w-[350px]">
 		<Card.Header>
 			<Card.Title>Reset your email address</Card.Title>
@@ -46,4 +46,4 @@
 			<Button on:click={resetEmail} class="ml-auto">Send reset link</Button>
 		</Card.Footer>
 	</Card.Root>
-</main>
+</div>

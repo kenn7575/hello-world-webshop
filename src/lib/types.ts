@@ -1,3 +1,5 @@
+import type { Stripe } from 'stripe';
+
 export interface CartItem {
 	id: string;
 	image: string;
@@ -33,10 +35,12 @@ export interface Purchase {
 	stripe_checkout_session_id: string;
 	stripe_charge_id: string;
 	stripe_payment_intent_id: string;
-	refunded: boolean;
 	amount: number;
-	date: Date;
+	date: number;
 	lineItems: LineItem[];
+	session?: Stripe.Checkout.Session;
+	paymentIntent?: Stripe.PaymentIntent;
+	charge?: Stripe.Charge;
 }
 export interface LineItem {
 	amount: string;
