@@ -14,9 +14,9 @@
 
 <h1 class="mt-8 text-center text-3xl font-bold">Welcome to the support center!</h1>
 
-<div class="g mt-16 grid w-full gap-4">
+<div class="g mt-16 grid w-full gap-4 xl:px-8">
 	<a href="/support/q-and-a">
-		<Card.Root class="h-full">
+		<Card.Root class="h-full min-h-40">
 			<Card.Header class="relative">
 				<Card.Title>Q & A</Card.Title>
 				<Card.Description>Frequently asked questions.</Card.Description>
@@ -25,7 +25,7 @@
 		</Card.Root>
 	</a>
 	<a href="/refund">
-		<Card.Root class="h-full">
+		<Card.Root class="h-full min-h-40">
 			<Card.Header class="relative">
 				<Card.Title>Refund policy</Card.Title>
 				<Card.Description>And how to request a refund.</Card.Description>
@@ -33,22 +33,16 @@
 			</Card.Header>
 		</Card.Root>
 	</a>
-	<Card.Root>
-		<Card.Header class="relative">
-			<Card.Title>Support email</Card.Title>
-			<Card.Description>Contact email support.</Card.Description>
-			<Mail class="absolute right-4 top-2 h-[2rem] w-[2rem]" />
-		</Card.Header>
-		<Card.Content>content</Card.Content>
-	</Card.Root>
-	<Card.Root>
-		<Card.Header class="relative">
-			<Card.Title>Cookie policy</Card.Title>
-			<Card.Description>Recall your consent or view how we use your cookies.</Card.Description>
-			<Cookie class="absolute right-4 top-2 h-[2rem] w-[2rem]" />
-		</Card.Header>
-		<Card.Content>content</Card.Content>
-	</Card.Root>
+	<a href="mailto:kontakt@kennik.dk">
+		<Card.Root class="h-full min-h-40">
+			<Card.Header class="relative">
+				<Card.Title>Support email</Card.Title>
+				<Card.Description>Contact email support.</Card.Description>
+				<Mail class="absolute right-4 top-2 h-[2rem] w-[2rem]" />
+			</Card.Header>
+		</Card.Root>
+	</a>
+
 	<a href="/privacy">
 		<Card.Root class="h-full min-h-40">
 			<Card.Header class="relative">

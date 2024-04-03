@@ -2,7 +2,7 @@ import { adminDB } from '$lib/server/admin';
 import type { LayoutServerLoad } from './$types';
 import type { CartItem } from '$lib/types';
 
-export const load = (async ({ cookies }) => {
+export const load = (async ({ cookies, locals }) => {
 	//also get all products for the catalog
 	const productsRef = await adminDB.collection('products').get();
 	const catalog = productsRef.docs.map((doc) => doc.data()) as CartItem[];
@@ -20,12 +20,13 @@ export const load = (async ({ cookies }) => {
 		});
 		const cart = products.filter((product) => productIds.includes(product.id));
 
-		return { cart, products: catalog };
+		return { cart, products: catalog, user: locals.user };
 	}
 
 	//retreive all purchases documents from users collection
 
 	return {
-		products: catalog
+		products: catalog,
+		user: locals.user
 	};
 }) satisfies LayoutServerLoad;

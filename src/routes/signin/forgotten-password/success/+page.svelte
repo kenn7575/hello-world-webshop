@@ -4,7 +4,7 @@
 	import { goto } from '$app/navigation';
 </script>
 
-<main class="w-full flex mt-32 justify-center">
+<div class="mt-32 flex w-full justify-center">
 	<Card.Root class="w-[350px]">
 		<Card.Header>
 			<Card.Title>Reset email send!</Card.Title>
@@ -22,4 +22,4 @@
 			>
 		</Card.Footer>
 	</Card.Root>
-</main>
+</div>

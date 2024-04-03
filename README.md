@@ -2,7 +2,7 @@
 
 ## Resources
 - [Stripe docs](https://docs.stripe.com/)
-- [Stripe api docs ](https://docs.stripe.com/api)
+- [Stripe API docs ](https://docs.stripe.com/api)
 
 ## Database structure
 ```plaintext

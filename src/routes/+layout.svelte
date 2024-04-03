@@ -1,4 +1,7 @@
 <script lang="ts">
+	import { injectSpeedInsights } from '@vercel/speed-insights/sveltekit';
+
+	injectSpeedInsights();
 	import '../app.pcss';
 	import { cart } from '$lib/functions/shoppingCart';
 	import type { LayoutData } from './$types';
@@ -7,19 +10,11 @@
 	const cartData = data.cart as CartItem[] | null;
 	if (cartData) $cart = cartData;
 	$: console.log($cart, 'cart');
+	$: console.log(data, 'data');
 
 	import { ModeWatcher } from 'mode-watcher';
 	import { Button } from '$lib/components/ui/button';
-	import {
-		Sun,
-		Moon,
-		GithubLogo,
-		HamburgerMenu,
-		Person,
-		Check,
-		ExclamationTriangle,
-		Cross2
-	} from 'radix-icons-svelte';
+	import { Sun, Moon, GithubLogo, HamburgerMenu, Person } from 'radix-icons-svelte';
 	import {
 		CircleHelp,
 		Github,
@@ -77,25 +72,6 @@
 	let showSheet = false;
 </script>
 
-<!-- <div class="fixed bottom-4 right-4 z-40">
-	{#if $cart.length > 0}
-		{#each $messages as message (message.id)}
-			<div in:fly={{ y: 200, opacity: 0.5 }} class="transition-all duration-500" animate:flip>
-				<Alert.Root class="w-96">
-					{#if message.type === 'warning'}
-						<ExclamationTriangle class="!text-error h-6 w-6" />
-					{:else if message.type === 'success'}
-						<Check class="!text-success h-6 w-6" />
-					{:else}
-						<Cross2 class="!text-error h-6 w-6" />
-					{/if}
-					<Alert.Title>{message.title}</Alert.Title>
-					<Alert.Description>{message.text}</Alert.Description>
-				</Alert.Root>
-			</div>
-		{/each}
-	{/if}
-</div> -->
 <Toaster />
 <ModeWatcher />
 <nav class="sticky top-0 z-50 w-full bg-background">
@@ -166,7 +142,7 @@
 		<div class="flex gap-2">
 			<Button
 				target="_blank"
-				href="https://github.com/kenn7575/Stripe-webshop"
+				href="https://github.com/kenn7575/hello-world-webshop"
 				variant="outline"
 				size="icon"
 			>
@@ -183,21 +159,22 @@
 				/>
 				<span class="sr-only">Toggle theme</span>
 			</Button>
-			{#if !$user}
+			{#if !$user && !data.user}
 				<Button href="/signin" variant="secondary" class="flex  gap-3">
 					<LogIn class="h-[1.2rem] w-[1.2rem]" />
 					<span class="hidden sm:block"> Sign in </span>
-
 					<span class="sr-only">Sign in</span>
 				</Button>
-			{:else}
+			{:else if $user || data.user}
 				<DropdownMenu.Root>
 					<DropdownMenu.Trigger asChild let:builder>
 						<Button builders={[builder]} href="/signin" variant="secondary" class="flex gap-3">
 							<Person class="line-clamp-1 h-[1.2rem] w-[1.2rem]" />
-							{$user.displayName}
+							<span class="hidden sm:block">{$user?.displayName || data.user?.displayName}</span>
 
-							<span class="sr-only">Sign in</span>
+							<span class="sr-only">
+								Logged in as {$user?.displayName || data.user?.displayName}
+							</span>
 						</Button>
 					</DropdownMenu.Trigger>
 					<DropdownMenu.Content class="w-56">
@@ -267,7 +244,7 @@
 	</div>
 	<Separator />
 </nav>
-<main class="w-screen overflow-hidden">
+<main class="w-screen overflow-hidden px-2 md:px-4">
 	<slot />
 </main>
 <!-- <div class="clip h-40 bg-secondary"></div>

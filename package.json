@@ -4,6 +4,7 @@
 	"private": true,
 	"scripts": {
 		"dev": "vite dev",
+		"host": "vite dev --host",
 		"webhooks": "stripe listen --forward-to localhost:5173/api/stripe/webhooks",
 		"build": "vite build",
 		"preview": "vite preview",
@@ -39,11 +40,13 @@
 	"type": "module",
 	"dependencies": {
 		"@stripe/stripe-js": "^3.1.0",
+		"@vercel/speed-insights": "^1.0.10",
 		"clsx": "^2.1.0",
 		"firebase": "^10.9.0",
 		"firebase-admin": "^12.0.0",
 		"gsap": "^3.12.5",
 		"lucide-svelte": "^0.363.0",
+		"puppeteer": "^22.6.2",
 		"stripe": "^14.22.0",
 		"svelte-sonner": "^0.3.19",
 		"tailwind-merge": "^2.2.2",

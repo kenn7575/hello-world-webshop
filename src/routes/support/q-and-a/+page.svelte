@@ -7,7 +7,7 @@
 	import { Button } from '$lib/components/ui/button';
 </script>
 
-<main class="flex flex-col items-center p-2 sm:p-4">
+<div class="flex flex-col items-center p-2 sm:p-4">
 	<h1 class="mt-8 text-3xl font-bold">Welcome to the Q&A</h1>
 	<p class="text-muted-foreground">Get the answers to all your questions.</p>
 
@@ -107,4 +107,4 @@
 			</Accordion.Item>
 		</Accordion.Root>
 	</div>
-</main>
+</div>
