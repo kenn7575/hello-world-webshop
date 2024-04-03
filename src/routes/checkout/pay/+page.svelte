@@ -10,6 +10,6 @@
 	}
 
 	onMount(() => {
-		makeLinkAndGoto(data.session?.url);
+		makeLinkAndGoto(data.session?.url || '');
 	});
 </script>

@@ -2,6 +2,7 @@ import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { cubicOut } from 'svelte/easing';
 import type { TransitionConfig } from 'svelte/transition';
+import type { CartItem, Product } from './types';
 
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs));
@@ -18,6 +19,19 @@ export function uppercaseFirstLetter(string: string | undefined | null) {
 	if (!string) return '';
 	if (typeof string !== 'string') return '';
 	return string.charAt(0).toUpperCase() + string.slice(1);
+}
+export function stringShortner(string: string, length: number) {
+	//insert "..." in middle of string if string is longer than length
+	if (string.length > length) {
+		const firstPart = string.slice(0, length / 2);
+		const secondPart = string.slice(string.length - length / 2, string.length);
+		return firstPart + '...' + secondPart;
+	}
+	return string;
+}
+export function getCartItem(id: string, products: CartItem[]): CartItem | undefined {
+	const product = products.find((product) => product.id === id);
+	return product;
 }
 export function unixToDate(unixTimestamp: number): string {
 	const date = new Date(unixTimestamp * 1000); // Convert seconds to milliseconds

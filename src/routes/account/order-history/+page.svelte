@@ -9,16 +9,10 @@
 	import Badge from '$lib/components/ui/badge/badge.svelte';
 	import { Skeleton } from '$lib/components/ui/skeleton/index.js';
 	import * as Alert from '$lib/components/ui/alert/index.js';
-	import { uppercaseFirstLetter, unixToDate } from '$lib/utils';
+	import { uppercaseFirstLetter, unixToDate, getCartItem } from '$lib/utils';
 	import { TriangleAlert } from 'lucide-svelte';
 
 	console.log('🚀 ~ data:', data);
-
-	function getProduct(id: string): CartItem | undefined {
-		const product = data.products.find((product) => product.id === id);
-
-		return product;
-	}
 
 	async function getPurchases() {
 		const response = await fetch('/api/account/purchases');
@@ -107,12 +101,14 @@
 						{#each purchase.lineItems as lineItem}
 							<div class="mt-2 flex items-center gap-4">
 								<img
-									src={getProduct(lineItem.product_id)?.image}
+									src={getCartItem(lineItem.product_id, data.products)?.image}
 									alt={lineItem.product_id}
 									class="aspect-square h-8 w-8 object-contain"
 								/>
 								<div class="flex flex-col gap-2">
-									<p class="text-base font-medium">{getProduct(lineItem.product_id)?.title}</p>
+									<p class="text-base font-medium">
+										{getCartItem(lineItem.product_id, data.products)?.title}
+									</p>
 								</div>
 							</div>
 						{/each}

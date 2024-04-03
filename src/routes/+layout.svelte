@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { injectSpeedInsights } from '@vercel/speed-insights/sveltekit';
-
+	import { dev } from '$app/environment';
+	import { inject } from '@vercel/analytics';
+	inject({ mode: dev ? 'development' : 'production' });
 	injectSpeedInsights();
 	import '../app.pcss';
 	import { cart } from '$lib/functions/shoppingCart';
@@ -244,7 +246,7 @@
 	</div>
 	<Separator />
 </nav>
-<main class="w-screen overflow-hidden px-2 md:px-4">
+<main class=" min-h-view w-screen overflow-hidden px-2 md:px-4">
 	<slot />
 </main>
 <!-- <div class="clip h-40 bg-secondary"></div>
@@ -257,7 +259,7 @@
 	></path></svg
 >
 <footer
-	class=" flex min-h-72 w-full items-center bg-secondary px-4 text-secondary-foreground sm:px-8"
+	class="mt-auto flex min-h-72 w-full items-center bg-secondary px-4 text-secondary-foreground sm:px-8"
 >
 	<div class="flex w-full flex-wrap items-start justify-around gap-4">
 		<div>

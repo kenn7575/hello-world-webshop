@@ -17,7 +17,9 @@
 		<p class="ml-4">
 			To request a refund, please contact our customer support team at kontakt@kennik.dk with the
 			subject line "Refund Request." Include your order number and a brief explanation of the reason
-			for your refund request.
+			for your refund request. You can also request a refund by from your account page. To do so, go
+			to /account/order-history and click on the order you want to refund. Then click the "Refund"
+			button.
 		</p>
 	</li>
 	<li class="mt-4">
