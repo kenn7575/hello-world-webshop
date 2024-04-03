@@ -1,40 +1,23 @@
 <script lang="ts">
 	import type { PageData } from './$types';
-	import type { CartItem, Purchase } from '$lib/types';
-
 	export let data: PageData;
+
+	import type { CartItem, Purchase } from '$lib/types';
+	import { Button } from '$lib/components/ui/button/index.js';
+	import { Separator } from '$lib/components/ui/separator/index.js';
+	import * as Card from '$lib/components/ui/card/index.js';
+	import Badge from '$lib/components/ui/badge/badge.svelte';
+	import { Skeleton } from '$lib/components/ui/skeleton/index.js';
+	import * as Alert from '$lib/components/ui/alert/index.js';
+	import { uppercaseFirstLetter, unixToDate } from '$lib/utils';
+	import { TriangleAlert } from 'lucide-svelte';
+
 	console.log('🚀 ~ data:', data);
 
 	function getProduct(id: string): CartItem | undefined {
 		const product = data.products.find((product) => product.id === id);
 
 		return product;
-	}
-
-	function unixToDate(unixTimestamp: number): string {
-		const date = new Date(unixTimestamp * 1000); // Convert seconds to milliseconds
-		const day = ('0' + date.getDate()).slice(-2);
-		const month = ('0' + (date.getMonth() + 1)).slice(-2);
-		const year = date.getFullYear();
-		const hours = ('0' + date.getHours()).slice(-2);
-		const minutes = ('0' + date.getMinutes()).slice(-2);
-		const seconds = ('0' + date.getSeconds()).slice(-2);
-
-		const displayDateFull = `${day}-${month}-${year} ${hours}:${minutes}:${seconds}`;
-		const displayDate = `${day}-${month}-${year}`;
-
-		return displayDate;
-	}
-	import { Button } from '$lib/components/ui/button/index.js';
-	import { Separator } from '$lib/components/ui/separator/index.js';
-	import * as Card from '$lib/components/ui/card/index.js';
-	import Badge from '$lib/components/ui/badge/badge.svelte';
-	import { Skeleton } from '$lib/components/ui/skeleton/index.js';
-
-	function uppercaseFirstLetter(string: string | undefined | null) {
-		if (!string) return '';
-		if (typeof string !== 'string') return '';
-		return string.charAt(0).toUpperCase() + string.slice(1);
 	}
 
 	async function getPurchases() {
@@ -48,8 +31,8 @@
 	}
 </script>
 
-{#await getPurchases()}
-	<div class="mx-auto flex w-full max-w-5xl flex-col gap-4">
+<div class="mx-auto flex w-full max-w-5xl flex-col gap-4">
+	{#await getPurchases()}
 		{#each [0, 1, 2, 3] as skeleton}
 			<Card.Root
 				class="flex w-full  flex-col items-start justify-between gap-y-4 border-2 bg-transparent p-6 sm:flex-row"
@@ -88,9 +71,7 @@
 				</div>
 			</Card.Root>
 		{/each}
-	</div>
-{:then purchases}
-	<div class="mx-auto flex w-full max-w-5xl flex-col gap-4">
+	{:then purchases}
 		{#if purchases.length === 0}
 			<Card.Root
 				class="flex w-full flex-col items-start justify-between gap-y-4 bg-card p-6 sm:flex-row"
@@ -112,13 +93,13 @@
 							<Badge class="w-fit border-foreground" variant="outline">Status</Badge>
 							<p class="text-sm font-normal">{uppercaseFirstLetter(purchase?.session?.status)}</p>
 						</div>
-						<Separator orientation="vertical" class="h-12 bg-foreground/25" />
+						<Separator orientation="vertical" class="h-12 " />
 						<div class="flex flex-col gap-2">
 							<Badge class="w-fit border-foreground" variant="outline">Date</Badge>
 							<p class="text-sm font-normal">{unixToDate(purchase?.date)}</p>
 						</div>
 					</div>
-					<Separator orientation="horizontal" class="bg-foreground/25  sm:hidden" />
+					<Separator orientation="horizontal" class="sm:hidden" />
 
 					<Separator orientation="vertical" class="mx-4 hidden h-24 bg-foreground/25 sm:block" />
 					<div class=" mr-auto flex flex-col gap-2">
@@ -139,17 +120,19 @@
 					<Separator orientation="horizontal" class="bg-foreground/25  sm:hidden" />
 
 					<div class="flex flex-col items-end justify-around gap-4 p-0">
-						<Button variant="secondary">Ordre details</Button>
+						<Button href="/account/order-history/{purchase.id}" variant="secondary"
+							>Ordre details</Button
+						>
 						<p class="text-3xl font-bold">{purchase.amount / 100} kr.</p>
 					</div>
 				</Card.Root>
 			{/each}
 		{/if}
-	</div>
-{:catch error}
-	<Alert.Root variant="destructive">
-		<ExclamationTriangle class="h-4 w-4" />
-		<Alert.Title>Error</Alert.Title>
-		<Alert.Description>{error.message}</Alert.Description>
-	</Alert.Root>
-{/await}
+	{:catch error}
+		<Alert.Root variant="destructive">
+			<TriangleAlert class="h-4 w-4" />
+			<Alert.Title>Error</Alert.Title>
+			<Alert.Description>{error.message}</Alert.Description>
+		</Alert.Root>
+	{/await}
+</div>

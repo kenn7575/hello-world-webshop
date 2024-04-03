@@ -1,4 +1,7 @@
 <script lang="ts">
+	import { injectSpeedInsights } from '@vercel/speed-insights/sveltekit';
+
+	injectSpeedInsights();
 	import '../app.pcss';
 	import { cart } from '$lib/functions/shoppingCart';
 	import type { LayoutData } from './$types';
