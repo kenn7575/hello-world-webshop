@@ -73,7 +73,7 @@
 				<Card.Header>
 					<Card.Title>You have not purchased anything yet</Card.Title>
 					<Card.Description
-						>When you purchase a product, the ordre will apper on this page</Card.Description
+						>When you purchase a product, the order will appear on this page</Card.Description
 					>
 				</Card.Header>
 			</Card.Root>
@@ -117,7 +117,7 @@
 
 					<div class="flex flex-col items-end justify-around gap-4 p-0">
 						<Button href="/account/order-history/{purchase.id}" variant="secondary"
-							>Ordre details</Button
+							>Order details</Button
 						>
 						<p class="text-3xl font-bold">{purchase.amount / 100} kr.</p>
 					</div>

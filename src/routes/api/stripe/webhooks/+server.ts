@@ -69,7 +69,8 @@ async function addPurchaseToUser(firebaseUID: string, session: Stripe.Checkout.S
 				product_id: item.price?.metadata?.firebase_product_id as string,
 				stripe_line_item_id: item.id as string,
 				stripe_prod_id: item.price?.product as string,
-				stripe_price_id: item.price?.id as string
+				stripe_price_id: item.price?.id as string,
+				refunded: false
 			};
 		})
 	});

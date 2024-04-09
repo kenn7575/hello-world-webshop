@@ -3,7 +3,7 @@
 	export let data: PageData;
 	import { addItemToCart, cart, removeItemFromCart } from '$lib/functions/shoppingCart';
 	import { AspectRatio } from '$lib/components/ui/aspect-ratio';
-	import type { CartItem, Purchase } from '$lib/types';
+	import type { CartItem } from '$lib/types';
 
 	import { Button } from '$lib/components/ui/button';
 	import * as Accordion from '$lib/components/ui/accordion';
@@ -13,13 +13,8 @@
 	import '../../../app.pcss';
 	import { PackageCheck, PackageMinus } from 'lucide-svelte';
 
-	//product
 	let product = data.product as CartItem;
-	let purchasesFromServer = data.purchases as Purchase[] | null;
-	$: userOwnsProduct = purchasesFromServer?.find((purchase) =>
-		purchase.lineItems.find((item) => item.product_id === product.id)
-	);
-	$: productAlreadyInCart = $cart.find((item) => item.id === product.id);
+	import { userPurchases } from '$lib/functions/firebase';
 </script>
 
 <article class="flex flex-col-reverse lg:flex-row">
@@ -73,7 +68,7 @@
 			</Accordion.Root>
 		</div>
 		<div class="@container flex items-center justify-start">
-			{#if userOwnsProduct}
+			{#if $userPurchases && $userPurchases.find( (purchase) => purchase.lineItems.find((item) => item.product_id === product.id) )}
 				<Alert.Root class="@2xl:flex-row flex flex-col justify-between gap-8">
 					<div class="flex gap-4">
 						<Face class="h-4 w-4" />
@@ -87,7 +82,7 @@
 
 					<Button variant="default" href="/account">View product</Button>
 				</Alert.Root>
-			{:else if productAlreadyInCart}
+			{:else if $cart.find((item) => item.id === product.id)}
 				<Alert.Root class=" flex max-w-72 flex-col justify-between gap-4">
 					<div class="flex items-center gap-4">
 						<PackageCheck class="h-6 w-6" />

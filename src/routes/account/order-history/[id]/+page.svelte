@@ -1,301 +1,25 @@
 <script lang="ts">
 	import type { PageData } from './$types';
+	import { blur, fade, fly } from 'svelte/transition';
+	import { quintOut, quadIn } from 'svelte/easing';
 
 	export let data: PageData;
 	console.log('🚀 ~ data:', data);
 
 	async function getPurchase(id: string) {
-		// const response = await fetch(`/api/account/purchases/${id}`);
-		// const json = await response.json();
-		// if (response.ok) {
-		// 	console.log('🚀 ~ data:', json);
-		// 	const data: Purchase = json;
-		// 	return data;
-		// } else {
-		// 	throw new Error(json.message);
-		// }
-		return {
-			date: 1712141989,
-			lineItems: [
-				{
-					amount: 250,
-					quantity: 1,
-					stripe_line_item_id: 'li_1P1RXlBT36pHQIUNXvTCEckI',
-					stripe_prod_id: 'prod_PoE3cwbHncVXgh',
-					product_id: 'MO2FAYfguBV80XEekQXn',
-					stripe_price_id: 'price_1OybbTBT36pHQIUNP1uHCqCT'
-				}
-			],
-			amount: 250,
-			stripe_payment_intent_id: 'pi_3P1Rc0BT36pHQIUN1KzzPYMi',
-			refunded: false,
-			stripe_checkout_session_id:
-				'cs_test_a1aGip9MhIzbcBynqC5xAuo5noH4BD98XacqcHHl9Lw8zX4Czz1bVbKMQh',
-			stripe_charge_id: 'py_3P1Rc0BT36pHQIUN1glBVclZ',
-			id: 'Ama9n6Sy0Vo8Aqxb7Abm',
-			session: {
-				id: 'cs_test_a1aGip9MhIzbcBynqC5xAuo5noH4BD98XacqcHHl9Lw8zX4Czz1bVbKMQh',
-				object: 'checkout.session',
-				after_expiration: null,
-				allow_promotion_codes: null,
-				amount_subtotal: 250,
-				amount_total: 250,
-				automatic_tax: {
-					enabled: true,
-					liability: {
-						type: 'self'
-					},
-					status: 'complete'
-				},
-				billing_address_collection: null,
-				cancel_url: 'http://localhost:5173/account',
-				client_reference_id: null,
-				client_secret: null,
-				consent: null,
-				consent_collection: null,
-				created: 1712141989,
-				currency: 'dkk',
-				currency_conversion: null,
-				custom_fields: [],
-				custom_text: {
-					after_submit: null,
-					shipping_address: null,
-					submit: null,
-					terms_of_service_acceptance: null
-				},
-				customer: 'cus_Pr9q3GN2Jo1TfT',
-				customer_creation: null,
-				customer_details: {
-					address: {
-						city: null,
-						country: 'DK',
-						line1: null,
-						line2: null,
-						postal_code: null,
-						state: null
-					},
-					email: 'kenn7575@gmail.com',
-					name: 'Kenni Kollemorten',
-					phone: null,
-					tax_exempt: 'none',
-					tax_ids: []
-				},
-				customer_email: null,
-				expires_at: 1712228389,
-				invoice: null,
-				invoice_creation: {
-					enabled: false,
-					invoice_data: {
-						account_tax_ids: null,
-						custom_fields: null,
-						description: null,
-						footer: null,
-						issuer: null,
-						metadata: {},
-						rendering_options: null
-					}
-				},
-				livemode: false,
-				locale: null,
-				metadata: {
-					firebaseUID: 'TDk2L6MA7LNm9gUHXVBk50V2kah1'
-				},
-				mode: 'payment',
-				payment_intent: 'pi_3P1Rc0BT36pHQIUN1KzzPYMi',
-				payment_link: null,
-				payment_method_collection: 'if_required',
-				payment_method_configuration_details: {
-					id: 'pmc_1OJY8xBT36pHQIUNfHqGjBvS',
-					parent: null
-				},
-				payment_method_options: {},
-				payment_method_types: ['card', 'klarna', 'link'],
-				payment_status: 'paid',
-				phone_number_collection: {
-					enabled: false
-				},
-				recovered_from: null,
-				setup_intent: null,
-				shipping_address_collection: {
-					allowed_countries: ['DK', 'SE', 'NO', 'FI']
-				},
-				shipping_cost: null,
-				shipping_details: {
-					address: {
-						city: 'Svendborg',
-						country: 'DK',
-						line1: 'Kullinggade 6a',
-						line2: null,
-						postal_code: '5700',
-						state: ''
-					},
-					name: 'kenni kollemorten'
-				},
-				shipping_options: [],
-				status: 'complete',
-				submit_type: null,
-				subscription: null,
-				success_url: 'http://localhost:5173/thanks',
-				total_details: {
-					amount_discount: 0,
-					amount_shipping: 0,
-					amount_tax: 0
-				},
-				ui_mode: 'hosted',
-				url: null
-			},
-			paymentIntent: {
-				id: 'pi_3P1Rc0BT36pHQIUN1KzzPYMi',
-				object: 'payment_intent',
-				amount: 250,
-				amount_capturable: 0,
-				amount_details: {
-					tip: {}
-				},
-				amount_received: 250,
-				application: null,
-				application_fee_amount: null,
-				automatic_payment_methods: null,
-				canceled_at: null,
-				cancellation_reason: null,
-				capture_method: 'automatic',
-				client_secret: 'pi_3P1Rc0BT36pHQIUN1KzzPYMi_secret_IiiqR3OiUtfljO4WJlc06KWSp',
-				confirmation_method: 'automatic',
-				created: 1712142252,
-				currency: 'dkk',
-				customer: 'cus_Pr9q3GN2Jo1TfT',
-				description: null,
-				invoice: null,
-				last_payment_error: null,
-				latest_charge: 'py_3P1Rc0BT36pHQIUN1glBVclZ',
-				livemode: false,
-				metadata: {},
-				next_action: null,
-				on_behalf_of: null,
-				payment_method: 'pm_1P1Rc0BT36pHQIUN9OwIDFPE',
-				payment_method_configuration_details: null,
-				payment_method_options: {
-					link: {
-						persistent_token: null
-					}
-				},
-				payment_method_types: ['link'],
-				processing: null,
-				receipt_email: 'kenn7575@gmail.com',
-				review: null,
-				setup_future_usage: null,
-				shipping: {
-					address: {
-						city: 'Svendborg',
-						country: 'DK',
-						line1: 'Kullinggade 6a',
-						line2: null,
-						postal_code: '5700',
-						state: ''
-					},
-					carrier: null,
-					name: 'kenni kollemorten',
-					phone: null,
-					tracking_number: null
-				},
-				source: null,
-				statement_descriptor: null,
-				statement_descriptor_suffix: null,
-				status: 'succeeded',
-				transfer_data: null,
-				transfer_group: null
-			},
-			charge: {
-				id: 'py_3P1Rc0BT36pHQIUN1glBVclZ',
-				object: 'charge',
-				amount: 250,
-				amount_captured: 250,
-				amount_refunded: 0,
-				application: null,
-				application_fee: null,
-				application_fee_amount: null,
-				balance_transaction: 'txn_3P1Rc0BT36pHQIUN1n2Kb8ZL',
-				billing_details: {
-					address: {
-						city: null,
-						country: 'DK',
-						line1: null,
-						line2: null,
-						postal_code: null,
-						state: null
-					},
-					email: 'kenn7575@gmail.com',
-					name: 'kenni kollemorten',
-					phone: null
-				},
-				calculated_statement_descriptor: null,
-				captured: true,
-				created: 1712142255,
-				currency: 'dkk',
-				customer: 'cus_Pr9q3GN2Jo1TfT',
-				description: null,
-				destination: null,
-				dispute: null,
-				disputed: false,
-				failure_balance_transaction: null,
-				failure_code: null,
-				failure_message: null,
-				fraud_details: {},
-				invoice: null,
-				livemode: false,
-				metadata: {},
-				on_behalf_of: null,
-				order: null,
-				outcome: {
-					network_status: 'approved_by_network',
-					reason: null,
-					risk_level: 'normal',
-					risk_score: 6,
-					seller_message: 'Payment complete.',
-					type: 'authorized'
-				},
-				paid: true,
-				payment_intent: 'pi_3P1Rc0BT36pHQIUN1KzzPYMi',
-				payment_method: 'pm_1P1Rc0BT36pHQIUN9OwIDFPE',
-				payment_method_details: {
-					link: {
-						country: 'US'
-					},
-					type: 'link'
-				},
-				radar_options: {},
-				receipt_email: 'kenn7575@gmail.com',
-				receipt_number: null,
-				receipt_url:
-					'https://pay.stripe.com/receipts/payment/CAcaFwoVYWNjdF8xT0dnTFNCVDM2cEhRSVVOKMCVtbAGMgbgm2RWFJA6LBbH5GDYvGI_O-zgOWAEzrlkvwHHoFPVjyXr7xRdF9jHYy7UPWoKS1dDw1M5',
-				refunded: false,
-				review: null,
-				shipping: {
-					address: {
-						city: 'Svendborg',
-						country: 'DK',
-						line1: 'Kullinggade 6a',
-						line2: null,
-						postal_code: '5700',
-						state: ''
-					},
-					carrier: null,
-					name: 'kenni kollemorten',
-					phone: null,
-					tracking_number: null
-				},
-				source: null,
-				source_transfer: null,
-				statement_descriptor: null,
-				statement_descriptor_suffix: null,
-				status: 'succeeded',
-				transfer_data: null,
-				transfer_group: null
-			}
-		};
+		const response = await fetch(`/api/account/purchases/${id}`);
+		const json = await response.json();
+		if (response.ok) {
+			console.log('🚀 ~ data:', json);
+			const data: Purchase = json;
+			return data;
+		} else {
+			throw new Error(json.message);
+		}
 	}
 
 	import type { CartItem, Purchase } from '$lib/types';
+	import * as AlertDialog from '$lib/components/ui/alert-dialog/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { Separator } from '$lib/components/ui/separator/index.js';
 	import * as Card from '$lib/components/ui/card/index.js';
@@ -307,6 +31,7 @@
 	import { toast } from 'svelte-sonner';
 	import { Input } from '$lib/components/ui/input/index.js';
 	import { Label } from '$lib/components/ui/label/index.js';
+	import Refund from '$lib/components/refund.svelte';
 
 	function createReceipt(url: string | string | undefined | null) {
 		if (!url) {
@@ -340,22 +65,159 @@
 	}
 
 	let loading: boolean = false;
+	enum RefundStatus {
+		NONE = 'none',
+		PROCESSING = 'processing',
+		REFUNDED = 'refunded'
+	}
+	let refunded: RefundStatus = RefundStatus.NONE;
 </script>
 
 <div class="mx-auto flex w-full max-w-5xl flex-col gap-4">
-	<Button variant="outline" class="w-fit gap-1  pr-6">
+	<Button variant="outline" class="w-fit gap-1  pr-6" href="/account/order-history">
 		<ArrowLeft class="h-4 w-4" />
 		Back
 	</Button>
 	{#await getPurchase(data.purchaseId)}
-		loading
+		<div out:fade={{ duration: 250 }} class="flex flex-wrap justify-between gap-4">
+			<div>
+				<Skeleton class="h-6 w-96 rounded-full bg-foreground/20" />
+			</div>
+			<div class="flex flex-row items-start gap-4">
+				<div class=" flex flex-col gap-2">
+					<Skeleton class="h-5 w-14 rounded-sm bg-foreground/20" />
+					<Skeleton class="h-3 w-20 rounded-full bg-foreground/20" />
+				</div>
+				<Separator orientation="vertical" class="h-12 " />
+				<div class=" flex flex-col gap-2">
+					<Skeleton class="h-5 w-14 rounded-sm bg-foreground/20" />
+					<Skeleton class="h-3 w-20 rounded-full bg-foreground/20" />
+				</div>
+				<Separator orientation="vertical" class="h-12 " />
+				<div class=" flex flex-col gap-2">
+					<Skeleton class="h-5 w-14 rounded-sm bg-foreground/20" />
+					<Skeleton class="h-3 w-28 rounded-full bg-foreground/20" />
+				</div>
+				<Separator orientation="vertical" class="h-12 " />
+				<div class=" flex flex-col gap-2">
+					<Skeleton class="h-5 w-14 rounded-sm bg-foreground/20" />
+					<Skeleton class="h-3 w-20 rounded-full bg-foreground/20" />
+				</div>
+			</div>
+		</div>
+		<div class="grid w-full grid-cols-4 gap-2">
+			<div out:fade={{ duration: 250 }}>
+				<Card.Root class="h-full  border-2 bg-transparent">
+					<Card.Header>
+						<Skeleton class="h-4 w-32 rounded-sm bg-foreground/20" />
+						<Skeleton class="h-3 w-40 rounded-sm bg-foreground/20" />
+					</Card.Header>
+					<Card.Content class="text-sm">
+						<Skeleton class="mb-2 h-3 w-24 rounded-sm bg-foreground/20" />
+						<Skeleton class="mb-2 h-3 w-20 rounded-sm bg-foreground/20" />
+						<Skeleton class="mb-2 h-3 w-12 rounded-sm bg-foreground/20" />
+						<Skeleton class="mb-2 h-3 w-8 rounded-sm bg-foreground/20" />
+					</Card.Content>
+				</Card.Root>
+			</div>
+			<div out:fade={{ duration: 250 }}>
+				<Card.Root class="border-2  bg-transparent">
+					<Card.Header>
+						<Skeleton class="mb-1 h-4 w-24 rounded-sm bg-foreground/20" />
+
+						<Skeleton class="h-3 w-48 rounded-sm bg-foreground/20" />
+					</Card.Header>
+					<Card.Content class="flex flex-col gap-2 text-sm">
+						<div class="grid w-full max-w-sm items-center gap-1.5">
+							<Skeleton class="h-3 w-10 rounded-sm bg-foreground/20" />
+
+							<Skeleton class="h-8 w-full rounded-sm bg-foreground/20" />
+						</div>
+						<div class="grid w-full max-w-sm items-center gap-1.5">
+							<Skeleton class="h-3 w-10 rounded-sm bg-foreground/20" />
+
+							<Skeleton class="h-8 w-full rounded-sm bg-foreground/20" />
+						</div>
+						<div class="grid w-full max-w-sm items-center gap-1.5">
+							<Skeleton class="h-3 w-12 rounded-sm bg-foreground/20" />
+
+							<Skeleton class="h-8 w-full rounded-sm bg-foreground/20" />
+						</div>
+					</Card.Content>
+				</Card.Root>
+			</div>
+
+			<div class="col-span-2 row-span-2" out:fade={{ duration: 250 }}>
+				<Card.Root class="flex h-full flex-col justify-between border-2 bg-transparent">
+					<Card.Header>
+						<Skeleton class="mb-1 h-4 w-24 rounded-sm bg-foreground/20" />
+
+						<Skeleton class="h-3 w-48 rounded-sm bg-foreground/20" />
+					</Card.Header>
+					<Card.Content class="mb-auto flex flex-col gap-2 text-sm">
+						{#each [1, 2, 3] as lineItem}
+							<div class="mt-2 flex items-center gap-4">
+								<Skeleton class="h-8 w-8 rounded-full bg-foreground/20" />
+
+								<div class="flex flex-col gap-2">
+									<Skeleton class="h-3 w-32 rounded-sm bg-foreground/20" />
+								</div>
+							</div>
+						{/each}
+						<Separator class="mt-4 bg-foreground" />
+					</Card.Content>
+					<Card.Footer class="flex flex-col">
+						<div class="flex w-full flex-row items-center justify-between gap-4">
+							<Skeleton class="h-3 w-20 rounded-sm bg-foreground/20" />
+
+							<Skeleton class="h-5 w-16 rounded-sm bg-foreground/20" />
+						</div>
+
+						<div class="mt-4 flex w-full flex-row items-center justify-between gap-3">
+							<Skeleton class="h-3 w-20 rounded-sm bg-foreground/20" />
+
+							<Skeleton class="h-5 w-16 rounded-sm bg-foreground/20" />
+						</div>
+
+						<Separator class="my-4 bg-foreground" />
+
+						<div class="flex w-full flex-row items-center justify-between gap-4">
+							<Skeleton class="h-5 w-16 rounded-sm bg-foreground/20" />
+
+							<Skeleton class="h-8 w-28 rounded-sm bg-foreground/20" />
+						</div>
+					</Card.Footer>
+				</Card.Root>
+			</div>
+
+			<div out:fade={{ duration: 250 }} class="col-span-2">
+				<Card.Root class=" border-2  bg-transparent">
+					<Card.Header>
+						<Skeleton class="mb-1 h-4 w-20 rounded-sm bg-foreground/20" />
+					</Card.Header>
+					<Card.Content class="text-sm">
+						<Skeleton class="mb-2 h-3 w-full rounded-sm bg-foreground/20" />
+						<Skeleton class="h-3 w-10/12 rounded-sm bg-foreground/20" />
+
+						<Skeleton class="mt-4 h-3 w-64 rounded-sm bg-foreground/20" />
+					</Card.Content>
+					<Card.Footer>
+						<Skeleton class="h-9 w-20 rounded-sm bg-foreground/20" />
+					</Card.Footer>
+				</Card.Root>
+			</div>
+		</div>
 	{:then purchase}
-		<div class="flex flex-wrap justify-between gap-4">
+		<div in:fade={{ duration: 250, delay: 250 }} class="flex flex-wrap justify-between gap-4">
 			<h2 class="text-3xl">Thank you for your purchase!</h2>
 			<div class="flex flex-row items-start gap-4">
 				<div class=" flex flex-col gap-2">
 					<Badge class="w-fit border-foreground" variant="outline">Status</Badge>
-					<p class="text-sm font-normal">{uppercaseFirstLetter(purchase?.session?.status)}</p>
+					<p class="text-sm font-normal">
+						{purchase.charge?.refunded || refunded === RefundStatus.REFUNDED
+							? 'Refunded'
+							: uppercaseFirstLetter(purchase?.session?.status)}
+					</p>
 				</div>
 				<Separator orientation="vertical" class="h-12 " />
 				<div class="flex flex-col gap-2">
@@ -364,7 +226,7 @@
 				</div>
 				<Separator orientation="vertical" class="h-12 " />
 				<div class="flex flex-col gap-2">
-					<Badge class="w-fit border-foreground" variant="outline">Ordre ID</Badge>
+					<Badge class="w-fit border-foreground" variant="outline">Order ID</Badge>
 					<div class="flex gap-1">
 						<p class="text-sm font-normal lg:hidden">{stringShortner(purchase?.id, 7)}</p>
 						<p class="hidden text-sm font-normal lg:block">{purchase?.id}</p>
@@ -397,105 +259,200 @@
 			</div>
 		</div>
 		<div class="grid w-full grid-cols-4 gap-2">
-			<Card.Root>
-				<Card.Header>
-					<Card.Title>Shipping address</Card.Title>
-					<Card.Description>Used for tax calculation.</Card.Description>
-				</Card.Header>
-				<Card.Content class="text-sm">
-					<p>
-						{purchase.session?.shipping_details?.address?.line1}
-					</p>
-					<p>
-						{purchase.session?.shipping_details?.address?.line2}
-					</p>
-					<p>
-						{purchase.session?.shipping_details?.address?.city}
-					</p>
-					<p>
-						{purchase.session?.shipping_details?.address?.postal_code}
-					</p>
-					<p>
-						{purchase.session?.shipping_details?.address?.country}
-					</p>
-				</Card.Content>
-			</Card.Root>
-			<Card.Root>
-				<Card.Header>
-					<Card.Title>Customer info</Card.Title>
-					<Card.Description>Associated with this purchase</Card.Description>
-				</Card.Header>
-				<Card.Content class="text-sm">
-					<div class="grid w-full max-w-sm items-center gap-1.5">
-						<Label for="email">Email</Label>
-						<Input
-							type="email"
-							value={purchase.session?.customer_details?.email ?? 'None'}
-							id="email"
-							disabled={true}
-						/>
-					</div>
-					<div class="grid w-full max-w-sm items-center gap-1.5">
-						<Label for="name">Name</Label>
-						<Input
-							type="text"
-							value={purchase.session?.customer_details?.name ?? 'None'}
-							id="name"
-							disabled={true}
-						/>
-					</div>
-					<div class="grid w-full max-w-sm items-center gap-1.5">
-						<Label for="name">Phone</Label>
-						<Input
-							type={purchase.session?.customer_details?.phone ? 'tel' : 'text'}
-							value={purchase.session?.customer_details?.phone ?? 'None'}
-							id="name"
-							disabled={true}
-						/>
-					</div>
-				</Card.Content>
-			</Card.Root>
-			<Card.Root class="col-span-2 row-span-2">
-				<Card.Header>
-					<Card.Title>Customer info</Card.Title>
-					<Card.Description>Associated with this purchase</Card.Description>
-				</Card.Header>
-				<Card.Content class="text-sm">
-					{#each purchase.lineItems as lineItem}
-						<div class="mt-2 flex items-center gap-4">
-							<img
-								src={getCartItem(lineItem.product_id, data.products)?.image}
-								alt={lineItem.product_id}
-								class="aspect-square h-8 w-8 object-contain"
+			<div in:fade={{ duration: 250, delay: 250 }}>
+				<Card.Root class="h-full">
+					<Card.Header>
+						<Card.Title>Shipping address</Card.Title>
+						<Card.Description>Used for tax calculation.</Card.Description>
+					</Card.Header>
+					<Card.Content class="text-sm">
+						<p>
+							{purchase.session?.shipping_details?.address?.line1}
+						</p>
+						<p>
+							{purchase.session?.shipping_details?.address?.line2}
+						</p>
+						<p>
+							{purchase.session?.shipping_details?.address?.city}
+						</p>
+						<p>
+							{purchase.session?.shipping_details?.address?.postal_code}
+						</p>
+						<p>
+							{purchase.session?.shipping_details?.address?.country}
+						</p>
+					</Card.Content>
+				</Card.Root>
+			</div>
+			<div in:fade={{ duration: 250, delay: 250 }}>
+				<Card.Root>
+					<Card.Header>
+						<Card.Title>Customer info</Card.Title>
+						<Card.Description>Associated with this purchase</Card.Description>
+					</Card.Header>
+					<Card.Content class="flex flex-col gap-2 text-sm">
+						<div class="grid w-full max-w-sm items-center gap-1.5">
+							<Label for="email">Email</Label>
+							<Input
+								type="email"
+								value={purchase.session?.customer_details?.email ?? 'None'}
+								id="email"
+								disabled={true}
 							/>
-							<div class="flex flex-col gap-2">
-								<p class="text-base font-medium">
-									{getCartItem(lineItem.product_id, data.products)?.title}
+						</div>
+						<div class="grid w-full max-w-sm items-center gap-1.5">
+							<Label for="name">Name</Label>
+							<Input
+								type="text"
+								value={purchase.session?.customer_details?.name ?? 'None'}
+								id="name"
+								disabled={true}
+							/>
+						</div>
+						<div class="grid w-full max-w-sm items-center gap-1.5">
+							<Label for="name">Phone</Label>
+							<Input
+								type={purchase.session?.customer_details?.phone ? 'tel' : 'text'}
+								value={purchase.session?.customer_details?.phone ?? 'None'}
+								id="name"
+								disabled={true}
+							/>
+						</div>
+					</Card.Content>
+				</Card.Root>
+			</div>
+			<div class="col-span-2 row-span-2" in:fade={{ duration: 250, delay: 250 }}>
+				<Card.Root class="flex h-full flex-col justify-between">
+					<Card.Header>
+						<Card.Title>Pruducts</Card.Title>
+						<Card.Description>Associated with this purchase</Card.Description>
+					</Card.Header>
+					<Card.Content class="mb-auto flex flex-col gap-2 text-sm">
+						{#each purchase.lineItems as lineItem}
+							<div class="mt-2 flex items-center gap-4">
+								<img
+									src={getCartItem(lineItem.product_id, data.products)?.image}
+									alt={lineItem.product_id}
+									class="aspect-square h-8 w-8 object-contain"
+								/>
+								<div class="flex flex-col gap-2">
+									<p class="text-base font-medium">
+										{getCartItem(lineItem.product_id, data.products)?.title}
+									</p>
+								</div>
+							</div>
+						{/each}
+						<Separator class="mt-4 bg-foreground" />
+					</Card.Content>
+					<Card.Footer class="flex flex-col">
+						<div class="flex w-full flex-row items-center justify-between gap-4">
+							<p class="text-sm font-normal">Subtotal</p>
+							<p class="text-lg font-semibold">
+								{(purchase.session?.amount_subtotal || 0) / 100} DKK
+							</p>
+						</div>
+						{#if (purchase.session?.total_details?.amount_discount || 0) > 0}
+							<div class="flex w-full flex-row items-center justify-between gap-4">
+								<p class="text-sm font-normal">Discount</p>
+								<p class="text-lg font-semibold">
+									{(purchase.session?.total_details?.amount_discount || 0) / 100} DKK
 								</p>
 							</div>
+						{/if}
+						<div class="flex w-full flex-row items-center justify-between gap-4">
+							<p class="text-sm font-normal">Tax</p>
+							<p class="text-lg font-semibold">
+								{(purchase.session?.total_details?.amount_tax || 0) / 100} DKK
+							</p>
 						</div>
-					{/each}
-				</Card.Content>
-			</Card.Root>
-			<Card.Root class="col-span-2">
-				<Card.Header>
-					<Card.Title>Refund</Card.Title>
-					<Card.Description></Card.Description>
-				</Card.Header>
-				<Card.Content class="text-sm">
-					<p>
-						If you want to refund this order, you can do so by clicking the button below. We will
-						refund the full amount to your original payment method.
-					</p>
-					<p>
-						Read more about our
-						<Button variant="link" class="p-0 underline" href="/refund">refund policy</Button>
-					</p>
-				</Card.Content>
-				<Card.Footer>
-					<Button variant="destructive">Refund</Button>
-				</Card.Footer>
-			</Card.Root>
+
+						<Separator class="my-4 bg-foreground" />
+
+						<div class="flex w-full flex-row items-center justify-between gap-4">
+							<p class="text-lg font-medium">Total</p>
+							<p class="text-3xl font-bold">{(purchase.session?.amount_total || 0) / 100} DKK</p>
+						</div>
+					</Card.Footer>
+				</Card.Root>
+			</div>
+			<div class="col-span-2" in:fade={{ duration: 250, delay: 250 }}>
+				<Card.Root>
+					<Card.Header>
+						<Card.Title>Refund</Card.Title>
+						<Card.Description></Card.Description>
+					</Card.Header>
+					<Card.Content class="text-sm">
+						<p>
+							If you want to refund this order, you can do so by clicking the button below. We will
+							refund the full amount to your original payment method.
+						</p>
+						<p>
+							Read more about our
+							<Button variant="link" class="p-0 underline" href="/refund">refund policy</Button>
+							here.
+						</p>
+					</Card.Content>
+					<Card.Footer>
+						<AlertDialog.Root>
+							<AlertDialog.Trigger asChild let:builder>
+								<Button
+									builders={[builder]}
+									variant="destructive"
+									disabled={purchase.charge?.amount === purchase.charge?.amount_refunded ||
+										refunded === RefundStatus.REFUNDED}
+									>{purchase.charge?.amount === purchase.charge?.amount_refunded ||
+									refunded === RefundStatus.REFUNDED
+										? 'Refunded'
+										: 'Refund'}
+								</Button>
+							</AlertDialog.Trigger>
+							<AlertDialog.Content class="rounded-lg">
+								<AlertDialog.Header>
+									<AlertDialog.Title
+										>Are you sure you want to refund this purchase?</AlertDialog.Title
+									>
+									<AlertDialog.Description>
+										You will receive a full refund to your original payment method. Furthermore, you
+										will lose access to the products associated with this purchase. <p>
+											Read more about our
+											<Button variant="link" class="p-0 underline" href="/refund"
+												>refund policy</Button
+											> here.
+										</p>
+									</AlertDialog.Description>
+								</AlertDialog.Header>
+								<AlertDialog.Footer>
+									<AlertDialog.Cancel>Cancel</AlertDialog.Cancel>
+									<AlertDialog.Action
+										on:click={async () => {
+											refunded = RefundStatus.PROCESSING;
+											try {
+												await fetch(`/api/stripe/refund?chargeId=${purchase.stripe_charge_id}`, {
+													method: 'DELETE'
+												});
+												refunded = RefundStatus.REFUNDED;
+												toast.success('Refund processed successfully', {
+													duration: 5000,
+													description:
+														'The money will be refunded to your original payment method shortly.'
+												});
+											} catch (err) {
+												refunded = RefundStatus.NONE;
+												toast.error('An error occurred while processing your refund', {
+													duration: 5000,
+													description: 'Please try again or contact support.'
+												});
+											}
+										}}
+										class="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+										>REQUEST REFUND</AlertDialog.Action
+									>
+								</AlertDialog.Footer>
+							</AlertDialog.Content>
+						</AlertDialog.Root>
+					</Card.Footer>
+				</Card.Root>
+			</div>
 		</div>
 	{:catch error}
 		<Alert.Root variant="destructive">

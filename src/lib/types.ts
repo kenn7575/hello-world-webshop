@@ -41,6 +41,7 @@ export interface Purchase {
 	session?: Stripe.Checkout.Session;
 	paymentIntent?: Stripe.PaymentIntent;
 	charge?: Stripe.Charge;
+	refunded: boolean;
 }
 export interface LineItem {
 	amount: string;

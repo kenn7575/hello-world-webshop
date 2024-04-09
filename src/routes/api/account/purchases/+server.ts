@@ -1,5 +1,5 @@
 import type { RequestHandler } from './$types';
-import { adminDB } from '$lib/server/admin';
+
 import { redirect, json, error } from '@sveltejs/kit';
 import type { Purchase, UserData } from '$lib/types';
 import { adminStripe } from '$lib/server/admin';

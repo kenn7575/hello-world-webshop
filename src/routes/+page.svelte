@@ -6,7 +6,6 @@
 	import type { CartItem } from '$lib/types';
 	let products = data.products as CartItem[];
 	import { Badge } from '$lib/components/ui/badge';
-	//get user data
 
 	//get user collection and all purchases from user/purchases when $user is set
 
@@ -17,6 +16,8 @@
 	function formatPrice(price: number) {
 		return price.toFixed(2);
 	}
+
+	//// :
 </script>
 
 <div class="mt-4 flex w-full justify-center px-4 xl:px-40">

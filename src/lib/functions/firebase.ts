@@ -64,7 +64,9 @@ export const userData: Readable<UserData | null> = derived(user, ($user, set) =>
 import type { Purchase } from '$lib/types';
 export const userPurchases: Readable<Purchase[] | null> = derived(user, ($user, set) => {
 	if ($user) {
-		return colStore<Purchase[]>(`users/${$user.uid}/purchases`).subscribe(set);
+		return colStore<Purchase[]>(
+			`users/${($user.uid, ['refunded', '==', false])}/purchases`
+		).subscribe(set);
 	} else {
 		set(null);
 	}
